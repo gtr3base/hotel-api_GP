@@ -3,7 +3,11 @@ package gtr3base.dev.hotel_api;
 import gtr3base.dev.hotel_api.dto.request.HotelRequest;
 import gtr3base.dev.hotel_api.dto.response.HotelBriefResponse;
 import gtr3base.dev.hotel_api.dto.response.HotelDetailedResponse;
-import gtr3base.dev.hotel_api.entity.*;
+import gtr3base.dev.hotel_api.entity.Address;
+import gtr3base.dev.hotel_api.entity.Amenity;
+import gtr3base.dev.hotel_api.entity.ArrivalTime;
+import gtr3base.dev.hotel_api.entity.Contacts;
+import gtr3base.dev.hotel_api.entity.Hotel;
 import gtr3base.dev.hotel_api.exception.HotelNotFoundException;
 import gtr3base.dev.hotel_api.repository.AmenityRepository;
 import gtr3base.dev.hotel_api.repository.HotelRepository;
@@ -17,12 +21,19 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class HotelServiceTest {
