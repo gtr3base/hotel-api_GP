@@ -1,3 +1,56 @@
+server:
+  port: 8092
+  servlet:
+    context-path: /property-view
+
 spring:
   application:
     name: hotel-api
+
+  datasource:
+    url: jdbc:h2:mem:hoteldb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  liquibase:
+    enabled: true
+    change-log: classpath:/db/changelog/db.changelog-master.xml
+
+# PostgreSQL hot swap
+#  datasource:
+#    url:jdbc:postgresl://localhost:5432/hoteldb
+#    driver-class-name: org.postgresql.Driver
+#    username: postgres
+#    password: postgres
+#  jpa:
+#    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+# MySQL hot swap
+#  datasource:
+#    url:jdbc:mysql://localhost:3306/hoteldb
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    username: root
+#    password: root
+#  jpa:
+#    database-platform: org.hibernate.dialect.MySQLDialect
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html

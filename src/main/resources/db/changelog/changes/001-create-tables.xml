@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+    
+    <changeSet id="001-create-hotels" author="gtr3base">
+
+        <createTable tableName="hotels">
+
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints
+                        primaryKey="true"
+                        nullable="false"
+                        primaryKeyName="pk_hotels"/>
+            </column>
+
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="description" type="TEXT"/>
+
+            <column name="brand" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="house_number" type="INT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="street" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="city" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="country" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="post_code" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="phone" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="email" type="VARCHAR(255)"/>
+
+            <column name="check_in" type="TIME"/>
+
+            <column name="check_out" type="TIME"/>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="002-create-amenities" author="gtr3base">
+
+        <createTable tableName="amenities">
+
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints
+                    primaryKey="true"
+                    nullable="false"
+                    primaryKeyName="pk_amenities"/>
+            </column>
+
+            <column name="name" type="VARCHAR(255)">
+                <constraints
+                    nullable="false"
+                    unique="true"
+                    uniqueConstraintName="uk_amenities_name"/>
+            </column>
+
+        </createTable>
+    </changeSet>
+    
+    <changeSet id="003-create-hotel-amenities" author="gtr3base">
+
+        <createTable tableName="hotel_amenities">
+
+            <column name="hotel_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="amenity_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey
+                tableName="hotel_amenities"
+                columnNames="hotel_id, amenity_id"
+                constraintName="pk_hotel_amenities"/>
+
+    </changeSet>
+
+    <changeSet id="004-add-hotel-amenities-fk" author="gtr3base">
+
+        <addForeignKeyConstraint baseTableName="hotel_amenities" baseColumnNames="hotel_id"
+                                 constraintName="fk_hotel_amenities_hotel"
+                                 referencedTableName="hotels"
+                                 referencedColumnNames="id"
+                                 onDelete="CASCADE"/>
+
+        <addForeignKeyConstraint baseTableName="hotel_amenities" baseColumnNames="amenity_id"
+                                 constraintName="fk_hotel_amenities_amenity"
+                                 referencedTableName="amenities"
+                                 referencedColumnNames="id"
+                                 onDelete="CASCADE"/>
+
+    </changeSet>
+</databaseChangeLog>
