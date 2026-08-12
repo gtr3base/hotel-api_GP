@@ -35,6 +35,7 @@ public class HotelRequest {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class ArrivalTimeRequest {
+        @NotBlank(message = "Check-in time is required")
         private String checkIn;
         private String checkOut;
     }
